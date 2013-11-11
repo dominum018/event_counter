@@ -1,0 +1,6 @@
+.hg
+.svn
+
+*.pyc
+*.pyo
+.idea/

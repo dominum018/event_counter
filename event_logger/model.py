@@ -6,6 +6,7 @@ from google.appengine.ext import ndb
 class EventModel(ndb.Model):
     """Models an individual event entry with content and date."""
     event = ndb.StringProperty(indexed=True)
+    country = ndb.StringProperty(indexed=False)
     content = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
 

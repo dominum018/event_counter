@@ -15,46 +15,16 @@
 # limitations under the License.
 #
 
-import os
 import webapp2
-import jinja2
-from collections import Counter
-from event_logger.fresh_meat import ApplicationEvent, EventCounter
-from event_logger.model import EventModel
-
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates"),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
+from event_logger.fresh_meat import init
+from event_logger.handlers import EventListHandler, GlobalStatisticsHandler, RegisteredHandler, WonHandler
 
 
-class StatisticsHandler(webapp2.RequestHandler):
-
-    def get(self):
-        self.c = Counter()
-        result = EventModel.query().map(self.count)
-        template_values = self.c
-        template = JINJA_ENVIRONMENT.get_template('index.html')
-        self.response.write(template.render(template_values=template_values))
-
-    def count(self, x):
-       self.c[x.event] += 1
-
-
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        ApplicationEvent.notify('game-won')
-        self.response.write('Event game-won has been triggered...')
-
-
-print 'STARTING INITIALIZATION'
-event_counter = EventCounter()
-ApplicationEvent.subscribe('game-won', event_counter)
-ApplicationEvent.subscribe('app-started', event_counter)
-print 'INITIALIZATION ENDED'
-ApplicationEvent.notify('app-started')
+init('game-won', 'user-registered','app-started')
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
-    ('/stats/', StatisticsHandler)
+    ('/statistics', GlobalStatisticsHandler),
+    ('/won', WonHandler),
+    ('/registered', RegisteredHandler),
+    ('/statistics/events', EventListHandler),
 ], debug=True)

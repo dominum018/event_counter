@@ -1,0 +1,51 @@
+    html, body {
+        width: 100%;
+        background-image: url('../images/background.jpg');
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+    }
+    .center
+    {
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+    }
+    #events
+    {
+        font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+        width: 600px;
+        border-collapse:collapse;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+
+    #div1{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+
+    #div2{
+        width: 800px;
+        height: 400px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+    .container {
+        width: 800px;
+        position: relative;
+    }
+
+    .detail_button {
+        background: url('../images/view.png');
+        width:40px;
+        height:40px;
+    }

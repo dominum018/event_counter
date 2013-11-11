@@ -1,79 +1,41 @@
 {% autoescape true %}
 <!DOCTYPE html>
-
 <html>
 <head>
-    <title>Event Counter FM</title>
-    <style>
-    html, body {
-        width: 100%;
-    }
-    .center
-    {
-        margin-right: auto;
-        margin-left: auto;
-    }
-    #events
-    {
-        font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-        width:60%;
-        border-collapse:collapse;
-        margin-right: auto;
-        margin-left: auto;
-    }
-    #events th
-    {
-        border:1px solid #98bf21;
-        padding:3px 7px 2px 7px;
-        font-size:1.1em;
-        text-align:left;
-        padding-top:5px;
-        padding-bottom:4px;
-        background-color:#A7C942;
-        color:#ffffff;
-    }
-    #events tr.alt_even
-    {
-        color:#000000;
-        background-color:#EAF2D3;
-    }
-    #events tr.alt_odd
-    {
-        color:#000000;
-        background-color:#BEEDBE;
-    }
-    </style>
+	<meta charset="utf-8">
+	<title>Event Counter</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/event_counter.css">
+    <link rel="stylesheet" href="../static/css/themes/green/style.css" type="text/css" media="print, projection, screen" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script>
+    <script src="../static/javascript/event_counter.js"></script>
+    <script type="text/javascript" src="./../static/javascript/jquery.tablesorter.js"></script>
+    <script type="text/javascript" src="./../static/javascript/jquery.metadata.js"></script>
+	<script type="text/javascript">
         $( document ).ready(function() {
-            $( "table tbody tr:even" ).addClass("alt_even");
-            $( "table tbody tr:odd" ).addClass("alt_odd");
-        });
+            $("#events").tablesorter();
+       });
     </script>
 </head>
-
-<body class="center">
-
-
-    <h1 style="text-align: center;">Test Event Counter</h1>
-
-    <table id="events">
-
-        <thead>
-            <tr>
-                <th>Event Name</th>
-                <th>Triggered</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for key, value in template_values.iteritems() %}
-            <tr>
-                <td>{{ key }}</td>
-                <td>{{ value }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<body style="background-image: url('../static/images/background.jpg');">
+    <h1 class="center">Event Counter</h1>
+        <table id="events" class="tablesorter">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Triggered</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in template_values.iteritems() %}
+                <tr>
+                    <td class="center">{{ key }}</td>
+                    <td class="center">{{ value }}</td>
+                    <td class="center"><button title="View Detail" class="detail_button" onclick="urlEvents('{{ key }}')"/></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 </body>
 </html>
 {% endautoescape %}
